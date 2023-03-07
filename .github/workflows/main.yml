@@ -18,7 +18,7 @@ jobs:
 
     - name: Frontend Build
       run: |
-        cd frontend
+        cd .\frontend\
         git init
         git config --global user.email ariel.betti@gmail.com
         git config --global user.name arielbetti
