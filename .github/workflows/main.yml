@@ -1,0 +1,42 @@
+name: Deploy Web App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Set up Python 3.11 environment
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v1
+      with:
+        python-version: "3.11"
+
+    - name: Frontend Build
+      run: |
+        cd frontend
+        git init
+        git config --global user.email ariel.betti@gmail.com
+        git config --global user.name arielbetti
+        git status
+        git remote add origin https://${{secrets.TOKEN}}@github.com/ArielBetti/react-pizza-flask
+        git checkout -b gh-pages-web
+        npm i
+        npm run build
+        git add .
+        git commit -m "ci: web deployment frontend"
+        git push origin gh-pages-web -f
+
+    - name: Run Flask
+      run: |
+        export FLASK_APP=app
+        export FLASK_ENV=production
+        flask run
+        git checkout gh-pages-web
+        git add .
+        git commit -m "ci: web deployment flask"
+        git push origin gh-pages-web -f
