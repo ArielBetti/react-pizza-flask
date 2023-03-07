@@ -37,6 +37,8 @@ function App() {
       .then((data) => data);
 
     getMenu();
+    setOpenEditModal(false);
+    setSelectedPizza(undefined);
   };
 
   const handleEditPizza = (pizza: TPizza) => {
