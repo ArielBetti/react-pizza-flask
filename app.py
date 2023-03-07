@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+import os
 
 fake_db = [
     {
@@ -30,7 +31,7 @@ fake_db = [
 
 app = Flask(__name__, static_folder='./frontend/dist', static_url_path='/')
 
-CORS(app)
+CORS(app, origins="*")
 
 
 def get_pizza(pizzaId: int):
@@ -71,5 +72,5 @@ def cardapio_route(pizza_id):
     elif request.method == "PUT":
         return edit_pizza(pizza_id)
 
-
-app.run()
+if __name__ == '__main__':
+    app.run(debug=True, port=os.getenv("PORT", default=5000))

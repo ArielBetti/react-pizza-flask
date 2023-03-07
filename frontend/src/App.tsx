@@ -25,7 +25,7 @@ function App() {
   };
 
   const editPizza = async (pizza: TPizza) => {
-    await fetch(`${import.meta.env.VITE_SOME_KEY}/cardapio/${pizza.id}`, {
+    await fetch(`${import.meta.env.VITE_FLASK_BASE_URL}/cardapio/${pizza.id}`, {
       method: "PUT",
       headers: {
         Accept: "application/json",
