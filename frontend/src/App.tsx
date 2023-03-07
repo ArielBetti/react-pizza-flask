@@ -19,13 +19,13 @@ function App() {
   const [pizzas, setPizzas] = useState<TPizza[]>([]);
 
   const getMenu = async () => {
-    await fetch("http://127.0.0.1:5000/cardapio")
+    await fetch(`${import.meta.env.VITE_FLASK_BASE_URL}/cardapio`)
       .then((res) => res.json())
       .then((data) => setPizzas(data));
   };
 
   const editPizza = async (pizza: TPizza) => {
-    await fetch(`http://127.0.0.1:5000/cardapio/${pizza.id}`, {
+    await fetch(`${import.meta.env.VITE_SOME_KEY}/cardapio/${pizza.id}`, {
       method: "PUT",
       headers: {
         Accept: "application/json",

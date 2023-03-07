@@ -28,7 +28,7 @@ fake_db = [
     },
 ]
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='./frontend/dist', static_url_path='/')
 
 CORS(app)
 
@@ -54,6 +54,10 @@ def edit_pizza(pizza_id):
     else:
         return jsonify({"error": {"message": "Não foi possível concluir as atualizações, ID não encontrado."}})
 
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
 
 @app.get('/cardapio')
 def get_cardapio():
